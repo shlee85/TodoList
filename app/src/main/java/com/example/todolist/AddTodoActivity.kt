@@ -74,6 +74,7 @@ class AddTodoActivity : AppCompatActivity() {
             //코루틴
             GlobalScope.launch {
                 Log.d(TAG, "코루틴 시작")
+                todoDao.insertTodo(ToDoEntity(null, todoTitle, todoImportance))
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@AddTodoActivity, "추가되었습니다.!", Toast.LENGTH_SHORT).show()
                 }

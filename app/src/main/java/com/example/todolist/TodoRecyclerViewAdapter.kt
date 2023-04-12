@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.db.ToDoEntity
 
-class TodoRecyclerViewAdapter(private val todoList: ArrayList<ToDoEntity>)
+class TodoRecyclerViewAdapter(private val todoList: ArrayList<ToDoEntity>,
+                              private val listener: OnItemLongClickListener)
     :RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
         val tv_importance = binding.tvImportance
         val tv_title = binding.tvTitle
+
+        val root = binding.root //루트레이아웃.
     }
 
     override fun onCreateViewHolder(
@@ -46,6 +49,12 @@ class TodoRecyclerViewAdapter(private val todoList: ArrayList<ToDoEntity>)
 
         //할 일의 제목 변경
         holder.tv_title.text = todoData.title
+
+        holder.root.setOnLongClickListener {
+            Log.d(TAG, "setonLongClickListene")
+            listener.onLongClick(position)
+            false
+        }
     }
 
     override fun getItemCount(): Int {
